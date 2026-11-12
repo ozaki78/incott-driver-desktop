@@ -233,7 +233,7 @@ const swapped = computed(() => isLRSwapped());
             <input v-model="query" class="input" :placeholder="t.searchKey" />
           </div>
           <div v-for="g in groups" :key="g.id" class="kgroup">
-            <div class="label">{{ i18n.lang === 'zh' ? g.zh : g.en }}</div>
+            <div class="label">{{ i18n.lang === 'zh-TW' ? (g.zhtw || g.zh) : i18n.lang === 'zh' ? g.zh : g.en }}</div>
             <div class="keys">
               <button v-for="[code, name, hid] in g.keys" :key="code" class="key" :class="{ on: isCur(C.fKeyboard, hid) }" @click="assignKeyboard(hid)">
                 {{ name }}

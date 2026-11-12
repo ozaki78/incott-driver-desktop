@@ -236,9 +236,19 @@ fn ensure_tray(app: &AppHandle) -> Result<(), String> {
     if app.tray_by_id(TRAY_ID).is_some() {
         return Ok(());
     }
-    let show = MenuItem::with_id(app, "show", "显示主窗口 / Show", true, None::<&str>).map_err(err)?;
+    let loc = sys_locale::get_locale().unwrap_or_default().to_ascii_lowercase();
+    let is_hans = loc.starts_with("zh-cn") || loc.starts_with("zh_cn") || loc.contains("hans");
+    let is_en = loc.starts_with("en");
+    let (show_text, quit_text) = if is_hans {
+        ("显示主窗口 / Show", "退出 / Quit")
+    } else if is_en {
+        ("Show / 顯示主視窗", "Quit / 結束")
+    } else {
+        ("顯示主視窗 / Show", "結束 / Quit")
+    };
+    let show = MenuItem::with_id(app, "show", show_text, true, None::<&str>).map_err(err)?;
     let sep = PredefinedMenuItem::separator(app).map_err(err)?;
-    let quit = MenuItem::with_id(app, "quit", "退出 / Quit", true, None::<&str>).map_err(err)?;
+    let quit = MenuItem::with_id(app, "quit", quit_text, true, None::<&str>).map_err(err)?;
     let menu = Menu::with_items(app, &[&show, &sep, &quit]).map_err(err)?;
     let icon = tauri::image::Image::from_bytes(include_bytes!("../../build/tray.png")).map_err(err)?;
     let builder = TrayIconBuilder::with_id(TRAY_ID)

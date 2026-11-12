@@ -94,25 +94,27 @@ export function keyCategory(kf) {
 /** 键盘页分组（基于原版按键表的顺序） */
 export function keyboardGroups(vk) {
   const groups = [
-    { id: 'letters', zh: '字母', en: 'Letters', test: (c) => /^Key[A-Z]$/.test(c) },
-    { id: 'digits', zh: '数字', en: 'Digits', test: (c) => /^Digit\d$/.test(c) },
-    { id: 'fn', zh: '功能键', en: 'Function', test: (c) => /^F\d+$/.test(c) },
+    { id: 'letters', zh: '字母', zhtw: '字母', en: 'Letters', test: (c) => /^Key[A-Z]$/.test(c) },
+    { id: 'digits', zh: '数字', zhtw: '數字', en: 'Digits', test: (c) => /^Digit\d$/.test(c) },
+    { id: 'fn', zh: '功能键', zhtw: '功能鍵', en: 'Function', test: (c) => /^F\d+$/.test(c) },
     {
       id: 'symbols',
       zh: '符号',
+      zhtw: '符號',
       en: 'Symbols',
       test: (c) => ['Minus', 'Equal', 'BracketLeft', 'BracketRight', 'Backslash', 'Semicolon', 'Quote', 'Comma', 'Period', 'Slash', 'Backquote', 'IntlBackslash'].includes(c),
     },
     {
       id: 'edit',
       zh: '编辑与控制',
+      zhtw: '編輯與控制',
       en: 'Editing & control',
       test: (c) =>
         ['Backspace', 'Enter', 'Space', 'Escape', 'Tab', 'CapsLock', 'ContextMenu', 'Pause', 'ScrollLock', 'Insert', 'Home', 'PageUp', 'Delete', 'End', 'PageDown'].includes(c),
     },
-    { id: 'arrows', zh: '方向键', en: 'Arrows', test: (c) => /^Arrow/.test(c) },
-    { id: 'mods', zh: '修饰键', en: 'Modifiers', test: (c) => /^(Control|Shift|Alt|Meta)(Left|Right)$/.test(c) },
-    { id: 'numpad', zh: '小键盘', en: 'Numpad', test: (c) => /^Num/.test(c) },
+    { id: 'arrows', zh: '方向键', zhtw: '方向鍵', en: 'Arrows', test: (c) => /^Arrow/.test(c) },
+    { id: 'mods', zh: '修饰键', zhtw: '輔助按鍵', en: 'Modifiers', test: (c) => /^(Control|Shift|Alt|Meta)(Left|Right)$/.test(c) },
+    { id: 'numpad', zh: '小键盘', zhtw: '數字鍵盤', en: 'Numpad', test: (c) => /^Num/.test(c) },
   ];
   return groups.map((g) => ({ ...g, keys: vk.filter(([c]) => g.test(c) && !/Button$/.test(c)) }));
 }
