@@ -87,6 +87,7 @@ function setShell(shell) {
             <div class="txt"><div class="name">{{ t.language }}</div></div>
             <div class="seg">
               <button :class="{ on: settings.lang === 'zh' }" @click="set('lang', 'zh')">简体中文</button>
+              <button :class="{ on: settings.lang === 'zh-TW' }" @click="set('lang', 'zh-TW')">繁體中文</button>
               <button :class="{ on: settings.lang === 'en' }" @click="set('lang', 'en')">English</button>
             </div>
           </div>

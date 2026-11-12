@@ -16,7 +16,16 @@ const USE_MOCK = typeof location !== 'undefined' && /[?&]mock\b/.test(location.s
 /* ----------------------------------------------------------- 设置持久化 */
 
 const SETTINGS_KEY = 'incott.desktop.settings';
-const defaultSettings = { theme: 'system', accent: 'orange', lang: 'zh', closeToTray: false, firstRunAck: false, shell: {} };
+function detectDefaultLang() {
+  if (typeof navigator !== 'undefined') {
+    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    if (/^zh-(tw|hk|mo|hant)/i.test(nav)) return 'zh-TW';
+    if (/^zh/i.test(nav)) return 'zh';
+    if (/^en/i.test(nav)) return 'en';
+  }
+  return 'zh';
+}
+const defaultSettings = { theme: 'system', accent: 'orange', lang: detectDefaultLang(), closeToTray: false, firstRunAck: false, shell: {} };
 
 function loadSettings() {
   try {
